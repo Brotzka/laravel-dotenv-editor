@@ -1,6 +1,6 @@
 # Edit your Laravel .env file
 
-This package offers you a possibility to edit your .env dinamically.
+This package offers you a possibility to edit your .env dinamically, for example out of a controller.
 
 Right now, the package offers the following functionalities:
  - Change values from your .env
