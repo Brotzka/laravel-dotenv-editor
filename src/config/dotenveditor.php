@@ -7,5 +7,15 @@
  */
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Path configuration
+    |--------------------------------------------------------------------------
+    |
+    | Change the paths, so they fit your needs
+    |
+    */
+    'pathToEnv' => base_path() . '/.env',
+    'backupPath'    => base_path() . '/resources/backups/dotenv-editor/',
 
 ];

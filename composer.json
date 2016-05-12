@@ -1,6 +1,7 @@
 {
     "name": "fabian/laravel-dotenv-editor",
     "description": "A package for editing the .env file in your Laravel root.",
+    "keywords": ["laravel", "dotenv", "dotenv-editor"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,5 +11,12 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brotzka\\DotenvEditor\\": "src/"
+        }
+    }
 }
