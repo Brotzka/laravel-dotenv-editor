@@ -1,0 +1,14 @@
+{
+    "name": "fabian/laravel-dotenv-editor",
+    "description": "A package for editing the .env file in your Laravel root.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabian Hagen",
+            "email": "fabianhagen87@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
