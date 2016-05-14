@@ -22,6 +22,7 @@ class DotenvEditor
      * TODO: Create add-method
      * TODO: Create delete-method
      * TODO: Create a method to return the env-entries
+     * TODO: Create a method to return all .env-keys
      */
 
     protected $env;

@@ -11,6 +11,10 @@ The following functions are in process:
  - Add new entries
  - Delete entries
 
+
+Already tested with:
+ - Laravel 5.2
+
 ## How to
 
 Add the package to your composer.json `require-dev` section:
@@ -21,20 +25,23 @@ and run
 
     composer update
 
-After this, you have to publish the config file via:
+Or you may require the package via:
 
-    php artisan vendor:publish
-
-Now you can edit the config file and put in your values.
+    composer require brotzka/laravel-dotenv-editor
 
 Add the following line to your `config/app.php` providers:
 
     Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
 
-
 Add the following line to your `config/app.php` aliases:
 
     'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
+
+Finally you have to publish the config file via:
+
+    php artisan vendor:publish
+
+Now you can edit the config file and put in your values.
 
 ## Examples
 
