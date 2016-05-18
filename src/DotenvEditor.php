@@ -28,8 +28,8 @@ class DotenvEditor
     | 
     |
     */
-    protected $env;
-    protected $backupPath;
+    private $env;
+    private $backupPath;
 
     /**
      * DotenvEditor constructor
@@ -87,7 +87,36 @@ class DotenvEditor
         return true;
     }
 
-    
+    /**
+     * Checks, if a given key exists in your .env-file.
+     * Returns false or true
+     *
+     * @param $key
+     * @return bool
+     */
+    public function keyExists($key){
+        $env = $this->getContent();
+        foreach($env as $envkey => $envvalue){
+            if($key === $envkey){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the value matching to a given key.
+     * Returns false, if key does not exist.
+     * 
+     * @param $key
+     * @return bool|mixed
+     */
+    public function getValue($key){
+        if($this->keyExists($key)){
+            return env($key);
+        }
+        return false;
+    }
     /*
     |--------------------------------------------------------------------------
     | Working with backups
@@ -241,6 +270,12 @@ class DotenvEditor
     | changeEnv($data = array())
     |
     */
+    /**
+     * Saves the given data to the .env-file
+     * 
+     * @param $array
+     * @return bool
+     */
     protected function save($array){
         if(is_array($array)){
             $newArray = array();
@@ -310,6 +345,9 @@ class DotenvEditor
 
     /**
      * Delete one or more entries from the env file.
+     * 
+     * @param array $data
+     * @return bool
      */
     public function deleteData($data = array()){
         $this->createBackup();
