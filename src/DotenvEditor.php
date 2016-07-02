@@ -255,7 +255,7 @@ class DotenvEditor
 
         foreach($string as $one){
             $entry = explode("=", $one, 2);
-            $returnArray[$entry[0]] = $entry[1];
+            $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
 
         return $returnArray;
