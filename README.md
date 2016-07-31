@@ -2,48 +2,40 @@
 
 # Edit your Laravel .env file
 
-This package offers you a possibility to edit your .env dinamically, for example out of a controller.
+This package offers you the possibility to edit your .env dynamically through a controller or model. 
 
-Right now, the package offers the following functionalities:
- - Change values from your .env
- - Create backups of your .env
+The current version (2.x) ships with a graphical user interface based on VueJS to offer you a very simple implementation of all features.
 
-The following functions are in process:
- - Restore a previous version of your .env
- - Add new entries
- - Delete entries
+List of available functions:
+- check, if a given key exists
+- get the value of a key
+- get the complete content of your .env
+- get the content as JSON
+- change existing values
+- add new key-value-pairs
+- delete existing key-value-pairs
+- create/restore/delete backups
+- list all backups
+- get the content of a backup
+- enable auto-backups
+- check, if auto-backups are enabled or not
+- get and set a backup-path
 
 
-Already tested with:
- - Laravel 5.2
+Here are some images showing the gui which ships with the current version:
 
-## How to
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
 
-Add the package to your composer.json `require-dev` section:
 
-    "brotzka/laravel-dotenv-editor": "dev-master"
+# Installation
 
-and run
+Visit the [Wiki-page](https://github.com/Brotzka/laravel-dotenv-editor/wiki/Installation) to get more Information.
 
-    composer update
-
-Or you may require the package via:
-
-    composer require brotzka/laravel-dotenv-editor
-
-Add the following line to your `config/app.php` providers:
-
-    Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
-
-Add the following line to your `config/app.php` aliases:
-
-    'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
-
-Finally you have to publish the config file via:
-
-    php artisan vendor:publish
-
-Now you can edit the config file and put in your values.
 
 ## Examples
 
