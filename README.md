@@ -24,14 +24,14 @@ List of available functions:
 
 Here are some images showing the gui which ships with the current version:
 
-[Overview](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_01.png)
-[Overview with loaded content](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_02.png)
-[Edit an entry](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_08.png)
-[Adding a new key-value-pair](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_03.png)
-[Backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_04.png)
-[Showing the content of a backup](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_06.png)
-[More options for backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_07.png)
-[Uploading Backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_05.png)
+![Overview](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_01.png)
+![Overview with loaded content](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_02.png)
+![Edit an entry](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_08.png)
+![Adding a new key-value-pair](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_03.png)
+![Backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_04.png)
+![Showing the content of a backup](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_06.png)
+![More options for backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_07.png)
+![Uploading Backups](https://github.com/Brotzka/laravel-dotenv-editor/blob/master/images/screenshot_05.png)
 
 
 # Installation
