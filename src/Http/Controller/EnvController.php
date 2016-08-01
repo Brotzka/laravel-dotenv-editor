@@ -8,6 +8,7 @@
 
 namespace Brotzka\DotenvEditor\Http\Controller;
 
+use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Illuminate\Routing\Controller as BaseController;
 
 use Brotzka\DotenvEditor\DotenvEditor as Env;
@@ -25,8 +26,13 @@ class EnvController extends BaseController
     public function overview(Request $request){
         $env = new Env();
         $data['values'] = $env->getContent();
-        $data['json'] = json_encode($data['values']);
-        $data['backups'] = $env->getBackupVersions();
+        //$data['json'] = json_encode($data['values']);
+        try{
+            $data['backups'] = $env->getBackupVersions();
+        } catch(DotEnvException $e){
+            $data['backups'] = false;
+        }
+
         $data['url'] = $request->path();
         return view('dotenv-editor::overview', $data);
     }

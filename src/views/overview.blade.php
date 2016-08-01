@@ -205,13 +205,13 @@ All needed files are included within this file, so nothing could break if you ex
                                 <p class="text-danger">
                                     {!! trans('dotenv-editor::views.backup_restore_warning') !!}
                                 </p>
-                                @if(count($backups) == 0)
+                                @if(!$backups)
                                     <p class="text text-info">
                                         {!! trans('dotenv-editor::views.backup_no_backups') !!}
                                     </p>
                                 @endif
                             </div>
-                            @if(count($backups) > 0)
+                            @if($backups)
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <tr>
@@ -248,6 +248,7 @@ All needed files are included within this file, so nothing could break if you ex
                             @endif
                         </div>
 
+                        @if($backups)
                         {{-- Details Modal --}}
                         <div class="modal fade" id="showDetails" tabindex="-1" role="dialog">
                             <div class="modal-dialog modal-lg">
@@ -285,6 +286,7 @@ All needed files are included within this file, so nothing could break if you ex
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                     </div>
 
