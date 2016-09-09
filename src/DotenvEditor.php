@@ -307,6 +307,9 @@ class DotenvEditor
         $returnArray = array();
 
         foreach($string as $one){
+            if (preg_match('/^(#\s)/', $one) === 1) {
+                continue;
+            }
             $entry = explode("=", $one, 2);
             $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
