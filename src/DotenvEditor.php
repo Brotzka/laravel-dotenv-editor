@@ -303,10 +303,13 @@ class DotenvEditor
      */
     protected function envToArray($file){
         $string = file_get_contents($file);
-        $string = preg_split('/\s+/', $string);
+        $string = preg_split('/\n+/', $string);
         $returnArray = array();
 
         foreach($string as $one){
+            if (preg_match('/^(#\s)/', $one) === 1) {
+                continue;
+            }
             $entry = explode("=", $one, 2);
             $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
