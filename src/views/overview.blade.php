@@ -359,7 +359,7 @@ All needed files are included within this file, so nothing could break if you ex
                 loadEnv: function(){
                     var vm = this;
                     this.loadButton = false;
-                    $.getJSON("{{ $url }}/getdetails", function(items){
+                    $.getJSON("/{{ $url }}/getdetails", function(items){
                         vm.entries = items;
                     });
                 },
@@ -377,7 +377,7 @@ All needed files are included within this file, so nothing could break if you ex
                     var newkey = this.newEntry.key;
                     var newvalue = this.newEntry.value;
                     $.ajax({
-                        url: "{{ $url }}/add",
+                        url: "/{{ $url }}/add",
                         type: "post",
                         data: {
                             _token: this.token,
@@ -408,7 +408,7 @@ All needed files are included within this file, so nothing could break if you ex
                 updateEntry: function(){
                     var vm = this;
                     $.ajax({
-                        url: "{{ $url }}/update",
+                        url: "/{{ $url }}/update",
                         type: "post",
                         data: {
                             _token: this.token,
@@ -425,7 +425,7 @@ All needed files are included within this file, so nothing could break if you ex
                 makeBackup: function(){
                     var vm = this;
                     $.ajax({
-                        url: "{{ $url }}/createbackup",
+                        url: "/{{ $url }}/createbackup",
                         type: "get",
                         success: function(){
                             vm.showAlert('success', "{{ trans('dotenv-editor::views.backup_created') }}");
@@ -435,7 +435,7 @@ All needed files are included within this file, so nothing could break if you ex
                 showBackupDetails: function(timestamp, formattedtimestamp){
                     this.currentBackup.timestamp = timestamp;
                     var vm = this;
-                    $.getJSON("{{ $url }}/getdetails/" + timestamp, function(items){
+                    $.getJSON("/{{ $url }}/getdetails/" + timestamp, function(items){
                         vm.details = items;
                         $('#showDetails').modal('show');
                     });
@@ -443,7 +443,7 @@ All needed files are included within this file, so nothing could break if you ex
                 restoreBackup: function(timestamp){
                     var vm = this;
                     $.ajax({
-                        url: "{{ $url }}/restore/" + timestamp,
+                        url: "/{{ $url }}/restore/" + timestamp,
                         type: "get",
                         success: function(){
                             vm.loadEnv();
@@ -458,7 +458,7 @@ All needed files are included within this file, so nothing could break if you ex
                     var vm = this;
 
                     $.ajax({
-                        url: "{{ $url }}/delete",
+                        url: "/{{ $url }}/delete",
                         type: "post",
                         data: {
                             _token: this.token,
