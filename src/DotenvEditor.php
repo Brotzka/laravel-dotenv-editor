@@ -39,10 +39,7 @@ class DotenvEditor
             return false;
         }
 
-        if(!is_dir($backupPath)){
-            mkdir($backupPath, 0777, true);
-        }
-        $this->backupPath = $backupPath;
+        $this->setBackupPath($backupPath);
     }
 
     /*
@@ -70,9 +67,12 @@ class DotenvEditor
      * @return bool
      */
     public function setBackupPath($path){
+        $path = rtrim($path, DIRECTORY_SEPARATOR);
+        $path .= DIRECTORY_SEPARATOR;
         if(!is_dir($path)){
             try {
                 mkdir($path, 0777, true);
+                file_put_contents($path . '.gitignore', "*\n!.gitignore\n");
             }catch(InvalidPathException $e){
                 echo $e->getMessage();
                 return false;

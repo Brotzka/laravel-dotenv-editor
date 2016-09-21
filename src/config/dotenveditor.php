@@ -15,8 +15,8 @@ return [
     | Change the paths, so they fit your needs
     |
     */
-    'pathToEnv'         =>  base_path() . '/.env',
-    'backupPath'        =>  base_path() . '/resources/backups/dotenv-editor/', // Make sure, you have a "/" at the end
+    'pathToEnv'         =>  base_path('.env'),
+    'backupPath'        =>  base_path('resources/backups/dotenv-editor'),
 
     /*
     |--------------------------------------------------------------------------
