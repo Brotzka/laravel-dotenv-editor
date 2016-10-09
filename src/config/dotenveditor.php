@@ -36,7 +36,7 @@ return [
     // Set the base-route. All requests start here
     'route'             =>  '/enveditor',
 
-    // middleware and middlewwaregroups. Add your own middleware if you want.
+    // middleware and middlewaregroups. Add your own middleware if you want.
     'middleware'        => ['web'],
     'middlewareGroups'  => []
 ];
