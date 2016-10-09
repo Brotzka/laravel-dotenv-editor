@@ -23,7 +23,8 @@ class EnvController extends BaseController
      *
      * Shows the overview, where you can visually edit your .env-file.
      */
-    public function overview(Request $request){
+    public function overview(Request $request)
+    {
         $env = new Env();
         $data['values'] = $env->getContent();
         //$data['json'] = json_encode($data['values']);
@@ -42,7 +43,8 @@ class EnvController extends BaseController
      *
      * Adds a new entry to your .env-file.
      */
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $env = new Env();
         $env->addData([
             $request->key   => $request->value,
@@ -54,7 +56,8 @@ class EnvController extends BaseController
      *
      * Updates the given entry from your .env.
      */
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $env = new Env();
         $env->changeEnv([
             $request->key => $request->value
@@ -67,7 +70,8 @@ class EnvController extends BaseController
      *
      * Returns the content as JSON
      */
-    public function getDetails($timestamp = NULL){
+    public function getDetails($timestamp = NULL)
+    {
         $env = new Env();
         return $env->getAsJson($timestamp);
     }
@@ -77,7 +81,8 @@ class EnvController extends BaseController
      *
      * Creates a backup of the current .env.
      */
-    public function createBackup(){
+    public function createBackup()
+    {
         $env = new Env();
         $env->createBackup();
         return back()->with('dotenv', trans('dotenv-editor::views.controller_backup_created'));
@@ -87,7 +92,8 @@ class EnvController extends BaseController
      * @param $timestamp
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteBackup($timestamp){
+    public function deleteBackup($timestamp)
+    {
         $env = new Env();
         $env->deleteBackup($timestamp);
         return back()->with('dotenv', trans('dotenv-editor::views.controller_backup_deleted'));
@@ -99,7 +105,8 @@ class EnvController extends BaseController
      *
      * Restore a backup
      */
-    public function restore($backuptimestamp){
+    public function restore($backuptimestamp)
+    {
         $env = new Env();
         $env->restoreBackup($backuptimestamp);
         return redirect(config('dotenveditor.route'));
@@ -110,7 +117,8 @@ class EnvController extends BaseController
      *
      * Deletes the given entry from your .env-file
      */
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $env = new Env();
         $env->deleteData([$request->key]);
     }
@@ -121,7 +129,8 @@ class EnvController extends BaseController
      *
      * Lets you download the choosen backup-file.
      */
-    public function download($filename = false){
+    public function download($filename = false)
+    {
         $env = new Env();
         if($filename){
             $file = $env->getBackupPath() . $filename . "_env";
@@ -136,7 +145,8 @@ class EnvController extends BaseController
      *
      * Upload a .env-file and replace the current one
      */
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
         $file = $request->file('backup');
         $file->move(base_path(), ".env");
         return redirect(config('dotenveditor.route'));
