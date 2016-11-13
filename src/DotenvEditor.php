@@ -331,7 +331,7 @@ class DotenvEditor
             $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
 
-        return array_filter($returnArray,function(key) { return !empty($key);},ARRAY_FILTER_USE_KEY);
+        return array_filter($returnArray,function($key) { return !empty($key);},ARRAY_FILTER_USE_KEY);
     }
 
 
