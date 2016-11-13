@@ -31,8 +31,8 @@ class DotenvEditor
      */
     public function __construct()
     {
-        $backupPath = config('dotenveditor.backupPath');
-        $env = config('dotenveditor.pathToEnv');
+        $backupPath = config('dotenveditor.backupPath', base_path() . '/resources/backups/dotenv-editor/');
+        $env = config('dotenveditor.pathToEnv', base_path() . '/.env');
 
         if(file_exists($env)){
             $this->env = $env;
