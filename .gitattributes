@@ -2,4 +2,5 @@
 
 /images export-ignore
 /.gitignore export-ingore
+/.gitatributes
 /README.md export ignore
