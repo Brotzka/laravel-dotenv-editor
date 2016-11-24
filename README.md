@@ -1,4 +1,5 @@
 [![Latest Stable Version](https://poser.pugx.org/brotzka/laravel-dotenv-editor/v/stable)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) [![Total Downloads](https://poser.pugx.org/brotzka/laravel-dotenv-editor/downloads)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) [![Latest Unstable Version](https://poser.pugx.org/brotzka/laravel-dotenv-editor/v/unstable)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) [![License](https://poser.pugx.org/brotzka/laravel-dotenv-editor/license)](https://packagist.org/packages/brotzka/laravel-dotenv-editor)
+[![Packagist](https://img.shields.io/packagist/dd/doctrine/orm.svg)](https://packagist.org/packages/brotzka/laravel-dotenv-editor)
 
 # Edit your Laravel .env file
 
