@@ -1,0 +1,5 @@
+# Exclude fileswhen the package is downloaded.
+
+/images export-ignore
+/.gitignore export-ingore
+/README.md export ignore
