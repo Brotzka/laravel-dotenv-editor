@@ -232,7 +232,7 @@ All needed files are included within this file, so nothing could break if you ex
                                                     <a href="javascript:;" @click="restoreBackup({{ $backup['unformatted'] }})"
                                                         title="{!! trans('dotenv-editor::views.backup_table_options_restore') !!}"
                                                     >
-                                                        <span class="glyphicon glyphicon-refresh" title="wiederherstellen"></span>
+                                                        <span class="glyphicon glyphicon-refresh" title="{!! trans('dotenv-editor::views.backup_table_options_restore') !!}"></span>
                                                     </a>
                                                     <a href="{{ url(config("dotenveditor.route") . "/download/" . $backup['unformatted']) }}">
                                                         <span class="glyphicon glyphicon-download" title="{!! trans('dotenv-editor::views.backup_table_options_download') !!}"></span>
