@@ -389,6 +389,10 @@ class DotenvEditor
             $newArray = array();
             $c = 0;
             foreach($array as $key => $value){
+                if(is_string($value)) {
+                    $value = '"' . $value . '"';
+                }
+
                 $newArray[$c] = $key . "=" . $value;
                 $c++;
             }
