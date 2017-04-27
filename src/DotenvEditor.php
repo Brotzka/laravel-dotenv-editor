@@ -389,7 +389,7 @@ class DotenvEditor
             $newArray = array();
             $c = 0;
             foreach($array as $key => $value){
-                if(is_string($value)) {
+                if (preg_match('/\s/', $value) > 0) {
                     $value = '"' . $value . '"';
                 }
 
