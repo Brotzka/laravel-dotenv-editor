@@ -389,9 +389,9 @@ class DotenvEditor
             $newArray = array();
             $c = 0;
             foreach($array as $key => $value){
-                if (preg_match('/\s/', $value) > 0) {
-                    $value = '"' . $value . '"';
-                }
+                if (preg_match('/\s/', $value) > 0 && (strpos($value, '"') > 0 && strpos($value, '"', -0) > 0)) {
+					$value = '"' . $value . '"';
+				}
 
                 $newArray[$c] = $key . "=" . $value;
                 $c++;
