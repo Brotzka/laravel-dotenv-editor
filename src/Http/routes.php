@@ -6,12 +6,12 @@
  * Time: 06:04
  */
 
-if(config('dotenveditor.activated')){
+if (config('dotenveditor.activated')) {
     Route::group([
         'middleware' => config('dotenveditor.middleware'),
         'middlewareGroups' => config('dotenveditor.middlewareGroups')
     ],
-        function(){
+        function () {
             Route::get(config('dotenveditor.route'), 'Brotzka\DotenvEditor\Http\Controller\EnvController@overview');
             Route::post(config('dotenveditor.route') . '/add', 'Brotzka\DotenvEditor\Http\Controller\EnvController@add');
             Route::post(config('dotenveditor.route') . '/update', 'Brotzka\DotenvEditor\Http\Controller\EnvController@update');

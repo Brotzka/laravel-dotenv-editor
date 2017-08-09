@@ -6,7 +6,8 @@
  * Date: 28.07.16
  * Time: 06:08
  */
-Namespace Brotzka\DotenvEditor\Exceptions;
+
+namespace Brotzka\DotenvEditor\Exceptions;
 
 use Exception;
 
