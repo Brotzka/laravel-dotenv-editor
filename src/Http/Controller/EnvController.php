@@ -10,7 +10,6 @@ namespace Brotzka\DotenvEditor\Http\Controller;
 
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Illuminate\Routing\Controller as BaseController;
-
 use Brotzka\DotenvEditor\DotenvEditor as Env;
 use Brotzka\DotenvEditor\Exceptions\DotEnvExeption;
 use Illuminate\Http\Request;
@@ -28,9 +27,9 @@ class EnvController extends BaseController
         $env = new Env();
         $data['values'] = $env->getContent();
         //$data['json'] = json_encode($data['values']);
-        try{
+        try {
             $data['backups'] = $env->getBackupVersions();
-        } catch(DotEnvException $e){
+        } catch (DotEnvException $e) {
             $data['backups'] = false;
         }
 
@@ -47,7 +46,7 @@ class EnvController extends BaseController
     {
         $env = new Env();
         $env->addData([
-            $request->key   => $request->value,
+            $request->key => $request->value,
         ]);
     }
 
@@ -132,7 +131,7 @@ class EnvController extends BaseController
     public function download($filename = false)
     {
         $env = new Env();
-        if($filename){
+        if ($filename) {
             $file = $env->getBackupPath() . $filename . "_env";
             return response()->download($file, $filename . ".env");
         }

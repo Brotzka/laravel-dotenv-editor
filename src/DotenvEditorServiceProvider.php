@@ -14,14 +14,15 @@ class DotenvEditorServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('brotzka-dotenveditor', function() {
+        $this->app->bind('brotzka-dotenveditor', function () {
             return new DotenvEditor();
         });
 
         $this->mergeConfigFrom(__DIR__ . '/config/dotenveditor.php', 'brotzka-dotenveditor');
     }
 
-    public function boot(){
+    public function boot()
+    {
         require __DIR__ . '/Http/routes.php';
 
         $this->loadViewsFrom(__DIR__ . '/views', 'dotenv-editor');
