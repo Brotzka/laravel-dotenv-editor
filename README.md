@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/26c13ba0918c42858ec6f94607238baa)](https://www.codacy.com/app/fabianhagen87/laravel-dotenv-editor?utm_source=github.com&utm_medium=referral&utm_content=Brotzka/laravel-dotenv-editor&utm_campaign=badger)
 [![Latest Stable Version](https://poser.pugx.org/brotzka/laravel-dotenv-editor/v/stable)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) 
 [![Total Downloads](https://poser.pugx.org/brotzka/laravel-dotenv-editor/downloads)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) 
 [![Latest Unstable Version](https://poser.pugx.org/brotzka/laravel-dotenv-editor/v/unstable)](https://packagist.org/packages/brotzka/laravel-dotenv-editor) 
