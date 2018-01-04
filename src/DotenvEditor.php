@@ -34,11 +34,11 @@ class DotenvEditor
         $backupPath = config('dotenveditor.backupPath', base_path() . '/resources/backups/dotenv-editor/');
         $env = config('dotenveditor.pathToEnv', base_path() . '/.env');
 
-        if(file_exists($env)){
-            $this->env = $env;
-        } else {
-            return false;
+        if(!file_exists($env)){
+            return false;    
         }
+
+        $this->env = $env;
 
         if(!is_dir($backupPath)){
             mkdir($backupPath, 0777, true);
@@ -77,7 +77,7 @@ class DotenvEditor
             try {
                 mkdir($path, 0777, true);
             }catch(InvalidPathException $e){
-                echo $e->getMessage();
+                echo htmlspecialchars($e->getMessage());
                 return false;
             }
         }
@@ -95,11 +95,11 @@ class DotenvEditor
     public function keyExists($key)
     {
         $env = $this->getContent();
-        foreach($env as $envkey => $envvalue){
-            if($key === $envkey){
-                return true;
-            }
+
+        foreach(array_keys($env) as $envkey){
+            return $envkey === $key;
         }
+
         return false;
     }
 
@@ -241,12 +241,12 @@ class DotenvEditor
 
         if(count($versions) > 0){
             $output = array();
-            $c = 0;
+            $count = 0;
             foreach($versions as $version){
                 $part = explode("_", $version);
-                $output[$c]['formatted'] = date("Y-m-d H:i:s", (int)$part[0]);
-                $output[$c]['unformatted'] = $part[0];
-                $c++;
+                $output[$count]['formatted'] = date("Y-m-d H:i:s", (int)$part[0]);
+                $output[$count]['unformatted'] = $part[0];
+                $count++;
             }
             return $output;
         }
@@ -424,11 +424,13 @@ class DotenvEditor
             $env = $this->getContent();
 
             foreach($data as $dataKey => $dataValue){
-                foreach($env as $envKey => $envValue){
+
+                foreach(array_keys($env) as $envKey){
                     if($dataKey === $envKey){
                         $env[$envKey] = $dataValue;
                     }
                 }
+
             }
             return $this->save($env);
         }
