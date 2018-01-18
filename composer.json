@@ -18,5 +18,15 @@
         "psr-4": {
             "Brotzka\\DotenvEditor\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Brotzka\\DotenvEditor\\DotenvEditorServiceProvider"
+            ],
+            "aliases": {
+                "DotenvEditor": "Brotzka\\DotenvEditor\\DotenvEditorFacade"
+            }
+        }
+    },
 }
