@@ -33,6 +33,7 @@ class DotenvEditor
     {
         $backupPath = config('dotenveditor.backupPath', base_path() . '/resources/backups/dotenv-editor/');
         $env = config('dotenveditor.pathToEnv', base_path() . '/.env');
+	$filePermissions = config('dotenveditor.filePermissions');
 
         if(!file_exists($env)){
             return false;    
@@ -41,7 +42,7 @@ class DotenvEditor
         $this->env = $env;
 
         if(!is_dir($backupPath)){
-            mkdir($backupPath, 0777, true);
+            mkdir($backupPath, $filePermissions, true);
         }
         $this->backupPath = $backupPath;
     }
