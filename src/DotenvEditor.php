@@ -95,12 +95,7 @@ class DotenvEditor
     public function keyExists($key)
     {
         $env = $this->getContent();
-
-        foreach(array_keys($env) as $envkey){
-            return $envkey === $key;
-        }
-
-        return false;
+        return (array_key_exists($key, $env));
     }
 
     /**
