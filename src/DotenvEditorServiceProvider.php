@@ -18,7 +18,7 @@ class DotenvEditorServiceProvider extends ServiceProvider
             return new DotenvEditor();
         });
 
-        $this->mergeConfigFrom(__DIR__ . '/config/dotenveditor.php', 'brotzka-dotenveditor');
+        $this->mergeConfigFrom(__DIR__ . '/config/dotenveditor.php', 'dotenveditor');
     }
 
     public function boot(){
