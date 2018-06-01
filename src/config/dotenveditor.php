@@ -17,7 +17,7 @@ return [
     */
     'pathToEnv'         =>  base_path() . '/.env',
     'backupPath'        =>  base_path() . '/resources/backups/dotenv-editor/', // Make sure, you have a "/" at the end
-    'filePermissions'   =>  env('FILE_PERMISSIONS', 0777),
+    'filePermissions'   =>  env('FILE_PERMISSIONS', 0755),
 
     /*
     |--------------------------------------------------------------------------
