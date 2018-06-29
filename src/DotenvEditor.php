@@ -8,8 +8,8 @@
 
 namespace Brotzka\DotenvEditor;
 
-use Dotenv\Exception\InvalidPathException;
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
+use Dotenv\Exception\InvalidPathException;
 
 
 class DotenvEditor
