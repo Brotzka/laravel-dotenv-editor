@@ -320,7 +320,7 @@ class DotenvEditor
         $returnArray = array();
 
         foreach($string as $one){
-            if (preg_match('/^(#\s)/', $one) === 1) {
+            if (preg_match('/^(#\s)/', $one) === 1 || preg_match('/^([\\n\\r]+)/', $one)) {
                 continue;
             }
             $entry = explode("=", $one, 2);
