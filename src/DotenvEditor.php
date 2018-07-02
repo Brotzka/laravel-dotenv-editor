@@ -8,8 +8,8 @@
 
 namespace Brotzka\DotenvEditor;
 
-use Dotenv\Exception\InvalidPathException;
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
+use Dotenv\Exception\InvalidPathException;
 
 
 class DotenvEditor
@@ -320,7 +320,7 @@ class DotenvEditor
         $returnArray = array();
 
         foreach($string as $one){
-            if (preg_match('/^(#\s)/', $one) === 1) {
+            if (preg_match('/^(#\s)/', $one) === 1 || preg_match('/^([\\n\\r]+)/', $one)) {
                 continue;
             }
             $entry = explode("=", $one, 2);
