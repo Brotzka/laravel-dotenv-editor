@@ -112,5 +112,5 @@ return [
     |--------------------------------------------------------------------------
     */
     'controller_backup_deleted' => 'Yedekleme başarıyla silindi!',
-    'controller_backup_created' => 'Yedekleme başarıyla oluşturuldu!'
+    'controller_backup_created' => 'Yedekleme başarıyla oluşturuldu!',
 ];

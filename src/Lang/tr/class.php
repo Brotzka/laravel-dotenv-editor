@@ -21,5 +21,5 @@ return [
     'no_backups_available'          => 'Kullanılabilir yedek yok!',
     'backup_not_deletable'          => 'Dosya bulunamadığı için yedek silinemedi!',
     'array_needed'                  => 'İşlev sadece bir diziyi kabul eder!',
-    'numeric_array_needed'          => 'Fonksiyon sadece sadece silinebilir keyleri içeren bir sayısal diziyi kabul eder!'
+    'numeric_array_needed'          => 'Fonksiyon sadece sadece silinebilir keyleri içeren bir sayısal diziyi kabul eder!',
 ];
