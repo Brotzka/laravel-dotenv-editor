@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Mustafa Karagülle
  * Date: 01.12.2018
- * Time: 08:10
+ * Time: 08:10.
  */
 
 return [
