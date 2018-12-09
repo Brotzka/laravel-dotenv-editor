@@ -9,16 +9,16 @@ if (config('dotenveditor.activated')) {
     Route::group(
         config('dotenveditor.route'),
         function () {
-            Route::get('/', 'Brotzka\DotenvEditor\Http\Controller\EnvController@overview');
-            Route::post('/add', 'Brotzka\DotenvEditor\Http\Controller\EnvController@add');
-            Route::post('/update', 'Brotzka\DotenvEditor\Http\Controller\EnvController@update');
-            Route::get('/createbackup', 'Brotzka\DotenvEditor\Http\Controller\EnvController@createBackup');
-            Route::get('/deletebackup/{timestamp}', 'Brotzka\DotenvEditor\Http\Controller\EnvController@deleteBackup');
-            Route::get('/restore/{backuptimestamp}', 'Brotzka\DotenvEditor\Http\Controller\EnvController@restore');
-            Route::post('/delete', 'Brotzka\DotenvEditor\Http\Controller\EnvController@delete');
-            Route::get('/download/{filename?}', 'Brotzka\DotenvEditor\Http\Controller\EnvController@download');
-            Route::post('/upload', 'Brotzka\DotenvEditor\Http\Controller\EnvController@upload');
-            Route::get('/getdetails/{timestamp?}', 'Brotzka\DotenvEditor\Http\Controller\EnvController@getDetails');
-            Route::get('/test', 'Brotzka\DotenvEditor\Http\Controller\EnvController@test');
-        });
+            Route::get('/', 'EnvController@overview')->name('index');
+            Route::post('/add', 'EnvController@add')->name('add');
+            Route::post('/update', 'EnvController@update')->name('update');
+            Route::get('/createbackup', 'EnvController@createBackup')->name('createbackup');
+            Route::get('/deletebackup/{timestamp}', 'EnvController@deleteBackup')->name('deletebackup');
+            Route::get('/restore/{backuptimestamp}', 'EnvController@restore')->name('restore');
+            Route::post('/delete', 'EnvController@delete')->name('delete');
+            Route::get('/download/{filename?}', 'EnvController@download')->name('download');
+            Route::post('/upload', 'EnvController@upload')->name('upload');
+            Route::get('/getdetails/{timestamp?}', 'EnvController@getDetails')->name('getdetails');
+        }
+    );
 }
