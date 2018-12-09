@@ -68,7 +68,8 @@ class DotenvEditor
      * Set a new backup-path.
      * The new directory will be created if it doesn't exist
      *
-     * @param $path
+     * @param string $path [backup path]
+     *
      * @return bool
      */
     public function setBackupPath($path)
@@ -89,7 +90,8 @@ class DotenvEditor
      * Checks, if a given key exists in your .env-file.
      * Returns false or true
      *
-     * @param $key
+     * @param string $key [key]
+     *
      * @return bool
      */
     public function keyExists($key)
@@ -102,7 +104,8 @@ class DotenvEditor
      * Returns the value matching to a given key.
      * Returns false, if key does not exist.
      *
-     * @param $key
+     * @param string $key [key to get value]
+     *
      * @return mixed
      * @throws DotEnvException
      */
@@ -118,7 +121,9 @@ class DotenvEditor
     /**
      * Activate or deactivate the AutoBackup-Functionality
      *
-     * @param $onOff
+     * @param boolean $onOff [set auto backup on or of]
+     *
+     * @return void
      * @throws DotEnvException
      */
     public function setAutoBackup($onOff)
@@ -135,7 +140,7 @@ class DotenvEditor
      *
      * @return bool
      */
-    public function AutoBackupEnabled()
+    public function autoBackupEnabled()
     {
         return $this->autoBackup;
     }
@@ -186,7 +191,8 @@ class DotenvEditor
      * Restores the latest backup or a backup from a given timestamp.
      * Restores the latest version when no timestamp is given.
      *
-     * @param null $timestamp
+     * @param null $timestamp timestamp
+     *
      * @return string
      */
     public function restoreBackup($timestamp = null)
@@ -206,7 +212,8 @@ class DotenvEditor
     /**
      * Returns the file for the given backup-timestamp
      *
-     * @param $timestamp
+     * @param null $timestamp timestamp
+     *
      * @return string
      * @throws DotEnvException
      */
@@ -251,7 +258,8 @@ class DotenvEditor
     /**
      * Returns filename and path for the given timestamp
      *
-     * @param $timestamp
+     * @param null $timestamp timestamp
+     *
      * @return string
      * @throws DotEnvException
      */
@@ -266,7 +274,9 @@ class DotenvEditor
     /**
      * Delete the given backup-file
      *
-     * @param $timestamp
+     * @param null $timestamp timestamp
+     *
+     * @return void
      * @throws DotEnvException
      */
     public function deleteBackup($timestamp)
@@ -292,7 +302,8 @@ class DotenvEditor
      * Returns the content of a given backup file
      * or the content of the current env file.
      *
-     * @param null $timestamp
+     * @param null $timestamp timestamp
+     *
      * @return array
      */
     public function getContent($timestamp = null)
@@ -307,7 +318,8 @@ class DotenvEditor
     /**
      * Writes the content of a env file to an array.
      *
-     * @param $file
+     * @param file $file file
+     *
      * @return array
      */
     protected function envToArray($file)
@@ -324,14 +336,21 @@ class DotenvEditor
             $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
 
-        return array_filter($returnArray, function ($key) {return !empty($key);}, ARRAY_FILTER_USE_KEY);
+        return array_filter(
+            $returnArray,
+            function ($key) {
+                return !empty($key);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 
     /**
      * Returns the given .env as JSON array containing all entries as object
      * with key and value
      *
-     * @param null $timestamp
+     * @param null $timestamp timestamp
+     *
      * @return string
      */
     public function getAsJson($timestamp = null)
@@ -342,7 +361,8 @@ class DotenvEditor
     /**
      * Converts the given .env-array to JSON
      *
-     * @param array $file
+     * @param array $file file
+     *
      * @return string
      */
     private function envToJson($file = [])
@@ -370,7 +390,8 @@ class DotenvEditor
     /**
      * Saves the given data to the .env-file
      *
-     * @param $array
+     * @param array $array array
+     *
      * @return bool
      */
     protected function save($array)
@@ -400,14 +421,15 @@ class DotenvEditor
      * Change the given values of the current env file.
      * If the given key(s) is/are not found, nothing happens.
      *
-     * @param array $data
+     * @param array $data data
+     *
      * @return bool
      * @throws DotEnvException
      */
     public function changeEnv($data = array())
     {
         if (count($data) > 0) {
-            if ($this->AutoBackupEnabled()) {
+            if ($this->autoBackupEnabled()) {
                 $this->createBackup();
             }
 
@@ -431,14 +453,15 @@ class DotenvEditor
      * Add data to the current env file.
      * Data will be placed at the end.
      *
-     * @param array $data
+     * @param array $data data
+     *
      * @return bool
      * @throws DotEnvException
      */
     public function addData($data = array())
     {
         if (count($data) > 0) {
-            if ($this->AutoBackupEnabled()) {
+            if ($this->autoBackupEnabled()) {
                 $this->createBackup();
             }
 
@@ -475,11 +498,27 @@ class DotenvEditor
         return $value;
     }
 
+    /**
+     * [isStartOrEndWith description]
+     *
+     * @param string $value  value
+     * @param string $string check string
+     *
+     * @return boolean
+     */
     public function isStartOrEndWith($value, $string = '')
     {
         return starts_with($value, $string) || ends_with($value, $string);
     }
 
+    /**
+     * [setStartAndEndWith description]
+     *
+     * @param string $value  value
+     * @param string $string check string
+     *
+     * @return string value
+     */
     public function setStartAndEndWith($value, $string = '')
     {
         $value = str_start($value, '"');
@@ -490,7 +529,8 @@ class DotenvEditor
     /**
      * Delete one or more entries from the env file.
      *
-     * @param array $data
+     * @param array $data data
+     *
      * @return bool
      * @throws DotEnvException
      */
@@ -502,7 +542,7 @@ class DotenvEditor
             }
         }
 
-        if ($this->AutoBackupEnabled()) {
+        if ($this->autoBackupEnabled()) {
             $this->createBackup();
         }
         $env = $this->getContent();

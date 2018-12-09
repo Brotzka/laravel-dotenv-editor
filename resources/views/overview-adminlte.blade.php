@@ -9,7 +9,6 @@
   <div class="box-body" id="app">
     <div class="container">
       <h1><a href="{{ url(config('dotenveditor.route.prefix')) }}">{{ __('dotenv-editor::views.title') }}</a></h1>
-
       <div class="row">
         <div class="col-md-12">
           <ul class="nav nav-tabs">
@@ -19,16 +18,11 @@
           </ul>
         </div>
       </div>
-
       <br><br>
-
       <div class="row">
-
         <div class="col-md-12 col-sm-12">
-
           {{-- Error-Container --}}
           <div>
-            {{-- VueJS-Errors --}}
             <div class="alert alert-success" role="alert" v-show="alertsuccess">
               <button type="button" class="close" @click="closeAlert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -45,10 +39,8 @@
             </div>
             @endif
           </div>
-
           {{-- Overview --}}
           <div v-show="views[0].active">
-
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h2 class="panel-title">
@@ -87,7 +79,6 @@
                 </table>
               </div>
             </div>
-
             {{-- Modal delete --}}
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
               <div class="modal-dialog">
@@ -113,7 +104,6 @@
                 </div>
               </div>
             </div>
-
             {{-- Modal edit --}}
             <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
               <div class="modal-dialog">
@@ -140,9 +130,7 @@
                 </div>
               </div>
             </div>
-
           </div>
-
           {{-- Add new --}}
           <div v-show="views[1].active">
             <div class="panel panel-default">
@@ -170,7 +158,6 @@
               </div>
             </div>
           </div>
-
           {{-- Backups --}}
           <div v-show="views[2].active">
             {{-- Create Backup --}}
@@ -262,56 +249,50 @@
                     </table>
                   </div>
                   <div class="modal-footer">
-                    <a href="javascript:;" @click="restoreBackup(currentBackup.timestamp)"
-                    title="Stelle dieses Backup wieder her"
-                    class="btn btn-primary"
-                    >
-                    {!! __('dotenv-editor::views.backup_modal_restore') !!}
-                  </a>
+                    <a href="javascript:;" @click="restoreBackup(currentBackup.timestamp)" title="Stelle dieses Backup wieder her" class="btn btn-primary">
+                      {!! __('dotenv-editor::views.backup_modal_restore') !!}
+                    </a>
 
-                  <button type="button" class="btn btn-default" data-dismiss="modal">{!! __('dotenv-editor::views.backup_modal_close') !!}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{!! __('dotenv-editor::views.backup_modal_close') !!}</button>
 
-                  <a onclick="return confirm('are you sure?')" href="{{ url(config('dotenveditor.route.prefix') . "/deletebackup/" . $backup["unformatted"]) }}" class="btn btn-danger">
-                    {!! __('dotenv-editor::views.backup_modal_delete') !!}
-                  </a>
+                    <a onclick="return confirm('are you sure?')" href="{{ url(config('dotenveditor.route.prefix') . "/deletebackup/" . $backup["unformatted"]) }}" class="btn btn-danger">
+                      {!! __('dotenv-editor::views.backup_modal_delete') !!}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
+            @endif
           </div>
-          @endif
-
-        </div>
-
-        {{-- Upload --}}
-        <div v-show="views[3].active">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">{!! __('dotenv-editor::views.upload_title') !!}</h2>
-            </div>
-            <div class="panel-body">
-              <p>
-                {!! __('dotenv-editor::views.upload_text') !!}<br>
-                <span class="text text-warning">
-                  {!! __('dotenv-editor::views.upload_warning') !!}
-                </span>
-              </p>
-              <form method="post" action="{{ url(config('dotenveditor.route.prefix') . "/upload") }}" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="backup">{!! __('dotenv-editor::views.upload_label') !!}</label>
-                  <input type="file" name="backup">
-                </div>
-                <button type="submit" class="btn btn-primary" title="Ein Backup von deinem Computer hochladen">
-                  {!! __('dotenv-editor::views.upload_button') !!}
-                </button>
-              </form>
+          {{-- Upload --}}
+          <div v-show="views[3].active">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2 class="panel-title">{!! __('dotenv-editor::views.upload_title') !!}</h2>
+              </div>
+              <div class="panel-body">
+                <p>
+                  {!! __('dotenv-editor::views.upload_text') !!}<br>
+                  <span class="text text-warning">
+                    {!! __('dotenv-editor::views.upload_warning') !!}
+                  </span>
+                </p>
+                <form method="post" action="{{ url(config('dotenveditor.route.prefix') . "/upload") }}" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="backup">{!! __('dotenv-editor::views.upload_label') !!}</label>
+                    <input type="file" name="backup">
+                  </div>
+                  <button type="submit" class="btn btn-primary" title="Ein Backup von deinem Computer hochladen">
+                    {!! __('dotenv-editor::views.upload_button') !!}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</div> <!-- box body -->
+  </div> <!-- box body -->
 </div> <!-- box -->
 @endsection
 
@@ -483,16 +464,13 @@
       }
     }
   })
-</script>
-
-<script>
-  $(document).ready(function(){
-    $(function () {
-      $('[data-toggle="popover"]').popover()
-    });
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+$(document).ready(function(){
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
   })
+})
 </script>
 @endpush
