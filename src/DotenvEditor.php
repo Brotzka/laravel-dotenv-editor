@@ -11,7 +11,6 @@ namespace Brotzka\DotenvEditor;
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Dotenv\Exception\InvalidPathException;
 
-
 class DotenvEditor
 {
     /*
@@ -19,9 +18,9 @@ class DotenvEditor
     | Attributes and constructor
     |--------------------------------------------------------------------------
     |
-    | 
     |
-    */
+    |
+     */
     private $env;
     private $backupPath;
     private $autoBackup = false;
@@ -31,17 +30,17 @@ class DotenvEditor
      */
     public function __construct()
     {
-        $backupPath = config('dotenveditor.backupPath', base_path() . '/resources/backups/dotenv-editor/');
-        $env = config('dotenveditor.pathToEnv', base_path() . '/.env');
-	$filePermissions = config('dotenveditor.filePermissions');
+        $backupPath      = str_finish(config('dotenveditor.backupPath'), '/');
+        $env             = config('dotenveditor.pathToEnv');
+        $filePermissions = config('dotenveditor.filePermissions');
 
-        if(!file_exists($env)){
-            return false;    
+        if (!file_exists($env)) {
+            return false;
         }
 
         $this->env = $env;
 
-        if(!is_dir($backupPath)){
+        if (!is_dir($backupPath)) {
             mkdir($backupPath, $filePermissions, true);
         }
         $this->backupPath = $backupPath;
@@ -52,9 +51,9 @@ class DotenvEditor
     | Getter & setter
     |--------------------------------------------------------------------------
     |
-    | 
     |
-    */
+    |
+     */
     /**
      * Returns the current backup-path
      *
@@ -74,10 +73,10 @@ class DotenvEditor
      */
     public function setBackupPath($path)
     {
-        if(!is_dir($path)){
+        if (!is_dir($path)) {
             try {
                 mkdir($path, 0777, true);
-            }catch(InvalidPathException $e){
+            } catch (InvalidPathException $e) {
                 echo htmlspecialchars($e->getMessage());
                 return false;
             }
@@ -109,7 +108,7 @@ class DotenvEditor
      */
     public function getValue($key)
     {
-        if($this->keyExists($key)){
+        if ($this->keyExists($key)) {
             return env($key);
         } else {
             throw new DotEnvException(trans('dotenv-editor::class.requested_value_not_available'), 0);
@@ -124,7 +123,7 @@ class DotenvEditor
      */
     public function setAutoBackup($onOff)
     {
-        if(is_bool($onOff)){
+        if (is_bool($onOff)) {
             $this->autoBackup = $onOff;
         } else {
             throw new DotEnvException(trans('dotenv-editor::class.autobackup_wrong_value'), 0);
@@ -151,7 +150,7 @@ class DotenvEditor
     | getBackupVersions($formated = 1)
     | getBackupFile($timestamp)
     |
-    */
+     */
     /**
      * Used to create a backup of the current .env.
      * Will be assigned with the current timestamp.
@@ -173,10 +172,10 @@ class DotenvEditor
      */
     protected function getLatestBackup()
     {
-        $backups = $this->getBackupVersions();
+        $backups      = $this->getBackupVersions();
         $latestBackup = 0;
-        foreach($backups as $backup){
-            if($backup > $latestBackup) {
+        foreach ($backups as $backup) {
+            if ($backup > $latestBackup) {
                 $latestBackup = $backup;
             }
         }
@@ -190,11 +189,11 @@ class DotenvEditor
      * @param null $timestamp
      * @return string
      */
-    public function restoreBackup($timestamp = NULL)
+    public function restoreBackup($timestamp = null)
     {
-        $file = NULL;
-        if($timestamp !== NULL){
-            if($this->getFile($timestamp)){
+        $file = null;
+        if ($timestamp !== null) {
+            if ($this->getFile($timestamp)) {
                 $file = $this->getFile($timestamp);
             }
         } else {
@@ -206,7 +205,7 @@ class DotenvEditor
 
     /**
      * Returns the file for the given backup-timestamp
-     * 
+     *
      * @param $timestamp
      * @return string
      * @throws DotEnvException
@@ -215,7 +214,7 @@ class DotenvEditor
     {
         $file = $this->getBackupPath() . $timestamp . "_env";
 
-        if(file_exists($file)){
+        if (file_exists($file)) {
             return $file;
         } else {
             throw new DotEnvException(trans('dotenv-editor::class.requested_backup_not_found'), 0);
@@ -227,7 +226,7 @@ class DotenvEditor
      * Returns an array with all available backups.
      * Array contains the formatted and unformatted version of each backup.
      * Throws exception, if no backups were found.
-     * 
+     *
      * @return array
      * @throws DotEnvException
      */
@@ -235,12 +234,12 @@ class DotenvEditor
     {
         $versions = array_diff(scandir($this->backupPath), array('..', '.'));
 
-        if(count($versions) > 0){
+        if (count($versions) > 0) {
             $output = array();
-            $count = 0;
-            foreach($versions as $version){
-                $part = explode("_", $version);
-                $output[$count]['formatted'] = date("Y-m-d H:i:s", (int)$part[0]);
+            $count  = 0;
+            foreach ($versions as $version) {
+                $part                          = explode("_", $version);
+                $output[$count]['formatted']   = date("Y-m-d H:i:s", (int) $part[0]);
                 $output[$count]['unformatted'] = $part[0];
                 $count++;
             }
@@ -258,12 +257,11 @@ class DotenvEditor
      */
     public function getBackupFile($timestamp)
     {
-        if(file_exists($this->getBackupPath() . $timestamp . "_env")){
+        if (file_exists($this->getBackupPath() . $timestamp . "_env")) {
             return $this->backupPath . $timestamp . "_env";
         }
         throw new DotEnvException(trans('dotenv-editor::class.requested_backup_not_found'), 0);
     }
-
 
     /**
      * Delete the given backup-file
@@ -274,14 +272,13 @@ class DotenvEditor
     public function deleteBackup($timestamp)
     {
         $file = $this->getBackupPath() . $timestamp . "_env";
-        if(file_exists($file)){
+        if (file_exists($file)) {
             unlink($file);
         } else {
             throw new DotEnvException(trans('dotenv-editor::class.backup_not_deletable'), 0);
         }
     }
 
-    
     /*
     |--------------------------------------------------------------------------
     | Get the content
@@ -289,7 +286,7 @@ class DotenvEditor
     |
     | getContent($backup = NULL)
     |
-    */
+     */
 
     /**
      * Returns the content of a given backup file
@@ -298,9 +295,9 @@ class DotenvEditor
      * @param null $timestamp
      * @return array
      */
-    public function getContent($timestamp = NULL)
+    public function getContent($timestamp = null)
     {
-        if($timestamp === NULL){
+        if ($timestamp === null) {
             return $this->envToArray($this->env);
         } else {
             return $this->envToArray($this->getBackupFile($timestamp));
@@ -315,21 +312,20 @@ class DotenvEditor
      */
     protected function envToArray($file)
     {
-        $string = file_get_contents($file);
-        $string = preg_split('/\n+/', $string);
+        $string      = file_get_contents($file);
+        $string      = preg_split('/\n+/', $string);
         $returnArray = array();
 
-        foreach($string as $one){
+        foreach ($string as $one) {
             if (preg_match('/^(#\s)/', $one) === 1 || preg_match('/^([\\n\\r]+)/', $one)) {
                 continue;
             }
-            $entry = explode("=", $one, 2);
+            $entry                  = explode("=", $one, 2);
             $returnArray[$entry[0]] = isset($entry[1]) ? $entry[1] : null;
         }
 
-        return array_filter($returnArray,function($key) { return !empty($key);},ARRAY_FILTER_USE_KEY);
+        return array_filter($returnArray, function ($key) {return !empty($key);}, ARRAY_FILTER_USE_KEY);
     }
-
 
     /**
      * Returns the given .env as JSON array containing all entries as object
@@ -338,11 +334,10 @@ class DotenvEditor
      * @param null $timestamp
      * @return string
      */
-    public function getAsJson($timestamp = NULL)
+    public function getAsJson($timestamp = null)
     {
         return $this->envToJson($this->getContent($timestamp));
     }
-
 
     /**
      * Converts the given .env-array to JSON
@@ -353,16 +348,15 @@ class DotenvEditor
     private function envToJson($file = [])
     {
         $array = [];
-        $c = 0;
-        foreach($file as $key => $value){
-            $array[$c] = new \stdClass();
-            $array[$c]->key = $key;
+        $c     = 0;
+        foreach ($file as $key => $value) {
+            $array[$c]        = new \stdClass();
+            $array[$c]->key   = $key;
             $array[$c]->value = $value;
             $c++;
         }
         return json_encode($array);
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -371,23 +365,23 @@ class DotenvEditor
     |
     | changeEnv($data = array())
     |
-    */
+     */
 
     /**
      * Saves the given data to the .env-file
-     * 
+     *
      * @param $array
      * @return bool
      */
     protected function save($array)
     {
-        if(is_array($array)){
+        if (is_array($array)) {
             $newArray = array();
-            $c = 0;
-            foreach($array as $key => $value){
+            $c        = 0;
+            foreach ($array as $key => $value) {
                 if (preg_match('/\s/', $value) > 0 && (strpos($value, '"') > 0 && strpos($value, '"', -0) > 0)) {
-					$value = '"' . $value . '"';
-				}
+                    $value = '"' . $value . '"';
+                }
 
                 $newArray[$c] = $key . "=" . $value;
                 $c++;
@@ -412,17 +406,17 @@ class DotenvEditor
      */
     public function changeEnv($data = array())
     {
-        if(count($data) > 0){
-            if($this->AutoBackupEnabled()){
+        if (count($data) > 0) {
+            if ($this->AutoBackupEnabled()) {
                 $this->createBackup();
             }
 
             $env = $this->getContent();
 
-            foreach($data as $dataKey => $dataValue){
+            foreach ($data as $dataKey => $dataValue) {
 
-                foreach(array_keys($env) as $envKey){
-                    if($dataKey === $envKey){
+                foreach (array_keys($env) as $envKey) {
+                    if ($dataKey === $envKey) {
                         $env[$envKey] = $dataValue;
                     }
                 }
@@ -443,21 +437,54 @@ class DotenvEditor
      */
     public function addData($data = array())
     {
-        if(count($data) > 0){
-            if($this->AutoBackupEnabled()){
+        if (count($data) > 0) {
+            if ($this->AutoBackupEnabled()) {
                 $this->createBackup();
             }
 
             $env = $this->getContent();
-            
+
             // Expand the existing array with the new data
-            foreach($data as $key => $value){
-                $env[$key] = $value;
+            foreach ($data as $key => $value) {
+                $env[$key] = $this->santize($value);
             }
 
             return $this->save($env);
         }
         throw new DotEnvException(trans('dotenv-editor::class.array_needed'), 0);
+    }
+
+    /**
+     * [santize description]
+     *
+     * @param string $value [description]
+     *
+     * @return $value        santize value
+     */
+    public function santize($value = '')
+    {
+        if ($this->isStartOrEndWith($value, '\'')) {
+            $value = $this->setStartAndEndWith($value, '\'');
+        }
+        if ($this->isStartOrEndWith($value, '"')) {
+            $value = $this->setStartAndEndWith($value, '"');
+        }
+        if (preg_match('/\s/', $value)) {
+            $value = $this->setStartAndEndWith($value, '"');
+        }
+        return $value;
+    }
+
+    public function isStartOrEndWith($value, $string = '')
+    {
+        return starts_with($value, $string) || ends_with($value, $string);
+    }
+
+    public function setStartAndEndWith($value, $string = '')
+    {
+        $value = str_start($value, '"');
+        $value = str_finish($value, '"');
+        return $value;
     }
 
     /**
@@ -469,20 +496,20 @@ class DotenvEditor
      */
     public function deleteData($data = array())
     {
-        foreach($data as $key => $value){
-            if(!is_numeric($key)){
+        foreach ($data as $key => $value) {
+            if (!is_numeric($key)) {
                 throw new DotEnvException("dotenv-editor::class.numeric_array_needed", 0);
             }
         }
 
-        if($this->AutoBackupEnabled()){
+        if ($this->AutoBackupEnabled()) {
             $this->createBackup();
         }
         $env = $this->getContent();
 
-        foreach($data as $delete){
-            foreach($env as $key => $value){
-                if($delete === $key){
+        foreach ($data as $delete) {
+            foreach ($env as $key => $value) {
+                if ($delete === $key) {
                     unset($env[$key]);
                 }
             }

@@ -15,138 +15,160 @@ use Illuminate\Routing\Controller as BaseController;
 
 class EnvController extends BaseController
 {
+    protected $env;
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * [__construct description]
      *
+     * @param Env $env DotenvEditor
+     */
+    public function __construct(Env $env)
+    {
+        $this->env = $env;
+    }
+
+    /**
      * Shows the overview, where you can visually edit your .env-file.
+     *
+     * @param Request $request request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function overview(Request $request)
     {
-        $env            = new Env();
-        $data['values'] = $env->getContent();
+        $data['values'] = $this->env->getContent();
         //$data['json'] = json_encode($data['values']);
         try {
-            $data['backups'] = $env->getBackupVersions();
+            $data['backups'] = $this->env->getBackupVersions();
         } catch (DotEnvException $e) {
             $data['backups'] = false;
         }
 
         $data['url'] = $request->path();
-        return view('dotenv-editor::overview', $data);
+        return view(config('dotenveditor.overview'), $data);
     }
 
     /**
-     * @param Request $request
-     *
      * Adds a new entry to your .env-file.
+     *
+     * @param Request $request request
+     *
+     * @return none
      */
     public function add(Request $request)
     {
-        $env = new Env();
-        $env->addData([
-            $request->key => $request->value,
-        ]);
+        $this->env->addData(
+            [
+                $request->key => $request->value,
+            ]
+        );
+        return response()->json([]);
     }
 
     /**
-     * @param Request $request
-     *
      * Updates the given entry from your .env.
+     *
+     * @param Request $request request
+     *
+     * @return void
      */
     public function update(Request $request)
     {
-        $env = new Env();
-        $env->changeEnv([
-            $request->key => $request->value,
-        ]);
+        $this->env->changeEnv(
+            [
+                $request->key => $request->value,
+            ]
+        );
+        return response()->json([]);
     }
 
     /**
-     * @param null $timestamp
-     * @return string
-     *
      * Returns the content as JSON
+     *
+     * @param null $timestamp timespamp
+     *
+     * @return string
      */
     public function getDetails($timestamp = null)
     {
-        $env = new Env();
-        return $env->getAsJson($timestamp);
+        return $this->env->getAsJson($timestamp);
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
-     *
      * Creates a backup of the current .env.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function createBackup()
     {
-        $env = new Env();
-        $env->createBackup();
+        $this->env->createBackup();
         return back()->with('dotenv', trans('dotenv-editor::views.controller_backup_created'));
     }
 
     /**
-     * @param $timestamp
+     * Delete Backup
+     *
+     * @param string $timestamp timestamp
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteBackup($timestamp)
     {
-        $env = new Env();
-        $env->deleteBackup($timestamp);
+        $this->env->deleteBackup($timestamp);
         return back()->with('dotenv', trans('dotenv-editor::views.controller_backup_deleted'));
     }
 
     /**
-     * @param $backuptimestamp
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     *
      * Restore a backup
+     *
+     * @param void $backuptimestamp backuptimestamp
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restore($backuptimestamp)
     {
-        $env = new Env();
-        $env->restoreBackup($backuptimestamp);
-        return redirect(config('dotenveditor.route'));
+        $this->env->restoreBackup($backuptimestamp);
+        return redirect(config('dotenveditor.route.prefix'));
     }
 
     /**
-     * @param Request $request
-     *
      * Deletes the given entry from your .env-file
+     *
+     * @param Request $request request
+     *
+     * @return void
      */
     public function delete(Request $request)
     {
-        $env = new Env();
-        $env->deleteData([$request->key]);
+        $this->env->deleteData([$request->key]);
     }
 
     /**
-     * @param bool $filename
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     *
      * Lets you download the choosen backup-file.
+     *
+     * @param bool $filename filename
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download($filename = false)
     {
-        $env = new Env();
         if ($filename) {
-            $file = $env->getBackupPath() . $filename . '_env';
+            $file = $this->env->getBackupPath() . $filename . '_env';
             return response()->download($file, $filename . '.env');
         }
         return response()->download(base_path('.env'), '.env');
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     *
      * Upload a .env-file and replace the current one
+     *
+     * @param Request $request request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function upload(Request $request)
     {
         $file = $request->file('backup');
         $file->move(base_path(), '.env');
-        return redirect(config('dotenveditor.route'));
+        return redirect(config('dotenveditor.route.prefix'));
     }
 }
