@@ -24,7 +24,7 @@ class DotenvEditorServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'dotenv-editor');
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'dotenv-editor');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'dotenv-editor');
     }
 
     public function register()
