@@ -66,7 +66,10 @@
                   </tr>
                   <tr v-for="entry in entries">
                     <td>@{{ entry.key }}</td>
-                    <td>@{{ entry.value }}</td>
+                    <td>
+                      <i class="fa fa-eye" @click="entry.hide = !entry.hide"></i>
+                      <span>@{{ entry.value | hide(entry.hide) }}</span>
+                    </td>
                     <td>
                       <a href="javascript:;" @click="editEntry(entry)" title="{{ __('dotenv-editor::views.overview_table_popover_edit') }}">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -329,12 +332,26 @@
 
       ]
     },
+    filters: {
+      hide: function(value, hide) {
+        if (hide) {
+          return '*'.repeat(value.length)
+        }
+        return value
+      }
+    },
     methods: {
       loadEnv: function(){
         var vm = this;
         this.loadButton = false;
         $.getJSON("/{{ $url }}/getdetails", function(items){
-          vm.entries = items;
+          vm.entries = items.map(item => {
+            item.hide = false
+            if (item.key.toLowerCase().includes('key') || item.key.toLowerCase().includes('secret')) {
+              item.hide = true
+            }
+            return item
+          });
         });
       },
       setActiveView: function(viewName){
