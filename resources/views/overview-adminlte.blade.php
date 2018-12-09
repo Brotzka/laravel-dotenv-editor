@@ -341,7 +341,12 @@
         $.getJSON("/{{ $url }}/getdetails", function(items){
           vm.entries = items.map(item => {
             item.hide = false
-            if (item.key.toLowerCase().includes('key') || item.key.toLowerCase().includes('secret')) {
+            if (
+              item.key.toLowerCase().includes('key') ||
+              item.key.toLowerCase().includes('secret') ||
+              item.key.toLowerCase().includes('password')
+              )
+            {
               item.hide = true
             }
             return item
