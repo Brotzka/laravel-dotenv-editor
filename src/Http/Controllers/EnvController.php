@@ -6,14 +6,12 @@
  * Time: 06:17
  */
 
-namespace Brotzka\DotenvEditor\Http\Controller;
-
-use Brotzka\DotenvEditor\Exceptions\DotEnvException;
-use Illuminate\Routing\Controller as BaseController;
+namespace Brotzka\DotenvEditor\Http\Controllers;
 
 use Brotzka\DotenvEditor\DotenvEditor as Env;
-use Brotzka\DotenvEditor\Exceptions\DotEnvExeption;
+use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
 class EnvController extends BaseController
 {
@@ -25,12 +23,12 @@ class EnvController extends BaseController
      */
     public function overview(Request $request)
     {
-        $env = new Env();
+        $env            = new Env();
         $data['values'] = $env->getContent();
         //$data['json'] = json_encode($data['values']);
-        try{
+        try {
             $data['backups'] = $env->getBackupVersions();
-        } catch(DotEnvException $e){
+        } catch (DotEnvException $e) {
             $data['backups'] = false;
         }
 
@@ -47,7 +45,7 @@ class EnvController extends BaseController
     {
         $env = new Env();
         $env->addData([
-            $request->key   => $request->value,
+            $request->key => $request->value,
         ]);
     }
 
@@ -60,7 +58,7 @@ class EnvController extends BaseController
     {
         $env = new Env();
         $env->changeEnv([
-            $request->key => $request->value
+            $request->key => $request->value,
         ]);
     }
 
@@ -70,7 +68,7 @@ class EnvController extends BaseController
      *
      * Returns the content as JSON
      */
-    public function getDetails($timestamp = NULL)
+    public function getDetails($timestamp = null)
     {
         $env = new Env();
         return $env->getAsJson($timestamp);
@@ -132,11 +130,11 @@ class EnvController extends BaseController
     public function download($filename = false)
     {
         $env = new Env();
-        if($filename){
-            $file = $env->getBackupPath() . $filename . "_env";
-            return response()->download($file, $filename . ".env");
+        if ($filename) {
+            $file = $env->getBackupPath() . $filename . '_env';
+            return response()->download($file, $filename . '.env');
         }
-        return response()->download(base_path() . "/.env", ".env");
+        return response()->download(base_path('.env'), '.env');
     }
 
     /**
@@ -148,7 +146,7 @@ class EnvController extends BaseController
     public function upload(Request $request)
     {
         $file = $request->file('backup');
-        $file->move(base_path(), ".env");
+        $file->move(base_path(), '.env');
         return redirect(config('dotenveditor.route'));
     }
 }
