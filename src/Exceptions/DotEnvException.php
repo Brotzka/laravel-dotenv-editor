@@ -6,13 +6,13 @@
  * Date: 28.07.16
  * Time: 06:08
  */
-Namespace Brotzka\DotenvEditor\Exceptions;
+namespace Brotzka\DotenvEditor\Exceptions;
 
 use Exception;
 
 class DotEnvException extends Exception
 {
-    public function __construct($message, $code, Exception $previous = NULL)
+    public function __construct($message, $code, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

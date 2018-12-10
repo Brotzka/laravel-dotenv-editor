@@ -14,10 +14,10 @@ return [
     |
     | Change the paths, so they fit your needs
     |
-    */
-    'pathToEnv'         =>  base_path() . '/.env',
-    'backupPath'        =>  base_path() . '/resources/backups/dotenv-editor/', // Make sure, you have a "/" at the end
-    'filePermissions'   =>  env('FILE_PERMISSIONS', 0755),
+     */
+    'pathToEnv'       => base_path('.env'),
+    'backupPath'      => resource_path('backups/dotenv-editor/'),
+    'filePermissions' => env('FILE_PERMISSIONS', 0755),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,15 +29,24 @@ return [
     |
     | Comma-separate your different middlewares.
     |
-    */
+     */
 
     // Activate or deactivate the graphical interface
-    'activated'         => true,
+    'activated'       => true,
 
-    // Set the base-route. All requests start here
-    'route'             =>  '/enveditor',
+    /* Default view */
+    // 'template'        => 'dotenv-editor::master',
+    // 'overview'        => 'dotenv-editor::overview',
 
-    // middleware and middlewaregroups. Add your own middleware if you want.
-    'middleware'        => ['web'],
-    'middlewareGroups'  => []
+    /* This is my custom view, do not using */
+    'template'        => 'adminlte::page',
+    'overview'        => 'dotenv-editor::overview-adminlte',
+
+    // Config route group
+    'route'           => [
+        'namespace'  => 'Brotzka\DotenvEditor\Http\Controllers',
+        'prefix'     => 'admin/env',
+        'as'         => 'admin.env.',
+        'middleware' => ['web', 'admin'],
+    ],
 ];
