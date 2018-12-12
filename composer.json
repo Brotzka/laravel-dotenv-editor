@@ -1,5 +1,5 @@
 {
-    "name": "nguyentranchung/laravel-dotenv-editor",
+    "name": "brotzka/laravel-dotenv-editor",
     "description": "A package for editing the .env file in your Laravel root.",
     "keywords": ["laravel", "dotenv", "dotenv-editor"],
     "type": "library",
