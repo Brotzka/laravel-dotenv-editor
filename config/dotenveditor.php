@@ -35,18 +35,15 @@ return [
     'activated'       => true,
 
     /* Default view */
-    // 'template'        => 'dotenv-editor::master',
-    // 'overview'        => 'dotenv-editor::overview',
+    'template'        => 'dotenv-editor::master',  // You can replace this with your own master template
+    'overview'        => 'dotenv-editor::overview',
 
-    /* This is my custom view, do not using */
-    'template'        => 'adminlte::page',
-    'overview'        => 'dotenv-editor::overview-adminlte',
 
     // Config route group
     'route'           => [
         'namespace'  => 'Brotzka\DotenvEditor\Http\Controllers',
-        'prefix'     => 'admin/env',
+        'prefix'     => 'admin/env', // <YOUR ADMIN PANEL URL>/env => you can change the 'env' to anything you like
         'as'         => 'admin.env.',
-        'middleware' => ['web', 'admin'],
+        'middleware' => ['web', 'admin'], // Add the middleware based on your admin panel middleware
     ],
 ];

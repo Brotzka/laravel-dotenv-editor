@@ -1,6 +1,6 @@
 {
-    "name": "brotzka/laravel-dotenv-editor",
-    "description": "A package for editing the .env file in your Laravel root.",
+    "name": "chinmoym2004/laravel-dotenv-editor",
+    "description": "A package for editing the .env file in your Laravel root. This copy has the support for Laravel 6,7 & bootstrap 4 UI",
     "keywords": ["laravel", "dotenv", "dotenv-editor"],
     "type": "library",
     "license": "MIT",
