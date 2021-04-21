@@ -11,6 +11,7 @@ namespace Brotzka\DotenvEditor;
 use Illuminate\Support\Str;
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Dotenv\Exception\InvalidPathException;
+use Illuminate\Support\Str;
 
 class DotenvEditor
 {
@@ -520,7 +521,7 @@ class DotenvEditor
      *
      * @return string value
      */
-    public function setStartAndEndWith($value, $string = '')
+    public function setStartAndEndWith($value, $string = '"')
     {
         $value = Str::start($value, $string);
         $value = Str::finish($value, $string);
