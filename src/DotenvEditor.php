@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Dotenv\Exception\InvalidPathException;
 
-
 class DotenvEditor
 {
     /*
